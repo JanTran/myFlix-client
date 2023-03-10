@@ -1,4 +1,4 @@
- const MainView = () => {
+ const MainView = () => 
  return (
    <div>
      <div>Eloquent JavaScript</div>
@@ -8,6 +8,6 @@
      <div>The Road to React</div>
    </div>
  );
- };
+ 
 
  export default MainView;
