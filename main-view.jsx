@@ -9,5 +9,5 @@
    </div>
  );
  
-
+import MainView from './components/main-view/main-view';
  export default MainView;
