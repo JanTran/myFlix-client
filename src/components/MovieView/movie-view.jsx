@@ -1,3 +1,9 @@
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router";
+import { Button, Card, Row, Container, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import "./movie-view.scss";
+
 export const MovieView = ({ user, movies, updateUserState}) => { // Martin: pass user object as well to read favmovies
   const { movieId } = useParams();
   const movie = movies.find((b) => b.id === movieId);
