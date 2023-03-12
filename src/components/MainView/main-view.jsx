@@ -1,3 +1,6 @@
+import { MovieView } from "../movie-view/movie-view";
+import { MovieCard } from "../movie-card/movie-card";
+
 export const MainView = () => {
   const [user, setUser] = useState(null);
   const [movies, setMovies] = useState([]);
