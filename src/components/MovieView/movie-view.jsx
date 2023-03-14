@@ -8,52 +8,8 @@ export const MovieView = ({ user, movies, updateUserState}) => { // Martin: pass
   const { movieId } = useParams();
   const movie = movies.find((b) => b.id === movieId);
   const storedToken = localStorage.getItem("token");
-  const [fav, setFav] = useState(false);
 
-  useEffect(() => {
-    // Martin: Get fav from user props and look for movieId in the user.Favorites list
-    setFav(user.Favorites.includes(movieId))
-  }, [])
 
-  const handleAddFavorite = () => {
-    fetch("https://myflix-api-3dxz.onrender.com/users/"+user.Username+"/"+movie.id, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${storedToken}`,
-        "Content-Type": "application/json"
-      }
-    }).then((response) => response.json())
-    .then(data => {
-     if (data) {
-      console.log("ON FAV", data)
-        alert("Added to favorites!");
-        // Martin: We need to set and maintain a state for favorite button to toggle the add/remove buttons
-        setFav(true);
-        updateUserState(data)
-      } else {
-        alert("Something went wrong");
-      }
-    });
-  };
-
-  const handleRemoveFavorite = () => {
-    fetch("https://myflix-api-3dxz.onrender.com/users/"+user.Username+"/"+movie.id, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${storedToken}`,
-        "Content-Type": "application/json"
-      }
-    }).then((response) => response.json())
-    .then(data => {
-      if (data) {
-        alert("Removed from favorites");
-        setFav(false)
-        updateUserState(data)
-      } else {
-        alert("Something went wrong");
-      }
-    });
-  };
 
     return (
       <Row className="movie-view">
@@ -74,19 +30,6 @@ export const MovieView = ({ user, movies, updateUserState}) => { // Martin: pass
           <br></br>
           <br></br>
           {/* Martin: We toggle fav button here */}
-          {
-            !fav ? <Button 
-            className="button-add-favorite"
-            onClick={() => handleAddFavorite()}
-            >
-              + Add to Favorites
-            </Button> : <Button 
-            variant="danger"
-            onClick={() => handleRemoveFavorite()}
-            >
-              Remove from Favorites
-            </Button>
-          }
             
         </Col>
       </Row>
