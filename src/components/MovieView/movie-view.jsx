@@ -1,37 +1,34 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router";
-import { Button, Card, Row, Container, Col } from "react-bootstrap";
+import React from "react";
+import { Button, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./movie-view.scss";
 
-export const MovieView = ({ user, movies, updateUserState}) => { // Martin: pass user object as well to read favmovies
-  const { movieId } = useParams();
-  const movie = movies.find((b) => b.id === movieId);
-  const storedToken = localStorage.getItem("token");
-
-
-
-    return (
-      <Row className="movie-view">
-        <Col md={6} className="movie-poster"  >
-          <img className="movie-img" crossOrigin="anonymous" src={movie.image} />
-        </Col>
-        <Col md={6}>
-          <div className="movie-title">
-            <span className="value"><h2>{movie.title}</h2></span>
-          </div>
-          <div className="movie-description">
-            <span className="label"><h5>Description: </h5></span>
-            <span className="value">{movie.description}<br></br><br></br></span>
-          </div>
-          <Link to={`/`}>
-            <Button className="back-button button-primary">Back</Button>
-          </Link>
-          <br></br>
-          <br></br>
-          {/* Martin: We toggle fav button here */}
-            
-        </Col>
-      </Row>
-    );
-  };
+export const MovieView = ({ movie, onBack }) => {
+  return (
+    <div className="movie-view">
+      <img
+        className="movie-img"
+        crossOrigin="anonymous"
+        src={movie.ImagePath}
+      />
+      <div className="movie-title">
+        <h2>Title: {movie.Title}</h2>
+      </div>
+      <div className="movie-description">
+        <h5>Description: {movie.Description} </h5>
+      </div>
+      <div className="movie-description">
+        <h5>Director: {movie.Director.Name} </h5>
+      </div>
+      <div className="movie-description">
+        <h5>Genre: {movie.Genre.Name} </h5>
+      </div>
+      <Button
+        className="back-button button-primary"
+        onClick={() => onBack(undefined)}
+      >
+        Back
+      </Button>
+    </div>
+  );
+};

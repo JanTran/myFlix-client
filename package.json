@@ -21,7 +21,6 @@
   "dependencies": {
     "bootstrap": "^5.2.3",
     "moment": "^2.29.4",
-    "parcel": "^2.8.3",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.0",
@@ -31,6 +30,7 @@
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.8.3",
+    "parcel": "^2.8.3",
     "process": "^0.11.10"
   }
 }
