@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { MovieCard } from "../MovieCard/movie-card";
 import { MovieView } from "../MovieView/movie-view";
-// Here you import the PropTypes library
-import PropTypes from "prop-types";
 
 // The BookCard function component 
 
@@ -11,17 +9,7 @@ export const MainView = () => {
     fetch("https://myflix-brendon.herokuapp.com/movies")
       .then((response) => response.json())
       .then((data) => {
-        const booksFromApi = data.docs.map((doc) => {
-          return {
-            id: doc.key,
-            title: doc.title,
-            image:
-`https://covers.openlibrary.org/b/id/${doc.cover_i}-L.jpg`,
-            author: doc.author_name?.[0]
-          };
-        });
-
-        setBooks(booksFromApi);
+        setBooks(data);
       });
   }, []);
   const [selectedMovie, setSelectedMovie] = useState(undefined);
