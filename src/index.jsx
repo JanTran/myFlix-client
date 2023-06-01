@@ -5,8 +5,13 @@ import { MainView } from "./components/MainView/main-view";
 import "./index.scss";
 
 const App = () => {
-  return <MainView />;
+  return (
+    <Container>
+      <MainView />
+    </Container>
+  );
 };
+
 
 const container = document.querySelector("#root");
 const root = createRoot(container);
