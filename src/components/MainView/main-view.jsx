@@ -5,18 +5,19 @@ import { MovieView } from "../MovieView/movie-view";
 // The BookCard function component 
 
 export const MainView = () => {
+  const [selectedMovie, setSelectedMovie] = useState(undefined);
+  const [movies, setMovies] = useState([]);
   useEffect(() => {
     fetch("https://myflix-brendon.herokuapp.com/movies")
       .then((response) => response.json())
       .then((data) => {
-        setBooks(data);
+        setMovies(data);
       });
   }, []);
-  const [selectedMovie, setSelectedMovie] = useState(undefined);
-  const [movies, setMovies] = useState([]);
+ 
 
   if (selectedMovie) {
-    return <MovieView movie={selectedMovie} onBack={setSelectedMovie} />;
+    return <MovieView movie={selectedMovie} onBack={() => setSelectedMovie(undefined)} />;
   }
 
   return (
