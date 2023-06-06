@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { MovieCard } from "../MovieCard/movie-card";
-import { MovieView } from "../MovieView/movie-view";
+import {MovieCard} from "../movie/movie-card/movie-card";
+import {MovieView} from "../movie/movie-view/movie-view";
 import { LoginView } from '../login-view/login-view';
 import { SignupView } from '../signup-view/signup-view';
 
 // The BookCard function component 
 
 export const MainView = () => {
-  const [selectedMovie, setSelectedMovie] = useState(undefined);
+
   const [movies, setMovies] = useState([]);
   const storedToken = localStorage.getItem('token');
   const [movies, setMovies] = useState([]);
@@ -69,16 +69,3 @@ export const MainView = () => {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
   };
-
-  if (selectedMovie) {
-    return <MovieView movie={selectedMovie} onBack={() => setSelectedMovie(undefined)} />;
-  }
-
-  return (
-    <div>
-      {movies.map((movie) => (
-        <MovieCard movie={movie} key={movie._id} onClick={setSelectedMovie} />
-      ))}
-    </div>
-  );
-};
