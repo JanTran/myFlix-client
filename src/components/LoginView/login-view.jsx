@@ -13,7 +13,7 @@ export const LoginView = ({ onLoggedIn }) => {
       Password: password
     };
 
-    fetch('https://myflix-brendon.herokuapp.com/movies', {
+    fetch('https://myflix-brendon.herokuapp.com/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
