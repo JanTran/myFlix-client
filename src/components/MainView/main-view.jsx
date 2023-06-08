@@ -25,7 +25,7 @@ export const MainView = () => {
     if (!token) return;
 
     // Fetch movies from the API when the token changes
-    fetch('https://road-movie-cinephiles.herokuapp.com/movies', {
+    fetch('https://myflix-brendon.herokuapp.com/movies', {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then((response) => response.json())
@@ -35,7 +35,6 @@ export const MainView = () => {
           return {
             _id: movie._id,
             Title: movie.Title,
-            ImagePath: movie.ImagePath,
             Director: {
               firstName: movie.Director.firstName,
               lastName: movie.Director.lastName
