@@ -17,7 +17,7 @@ export const SignupView = () => {
       Birthday: birthday
     };
 
-    fetch('https://myflix-brendon.herokuapp.com/users',app.post("/users") {
+    fetch('https://myflix-brendon.herokuapp.com/users',{
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
@@ -31,7 +31,6 @@ export const SignupView = () => {
         alert('Signup failed');
       }
     });
-  };
 
   return (
     <Form onSubmit={handleSubmit} className='mt-2 w-50 mx-auto'>
