@@ -46,7 +46,6 @@ export const MainView = () => {
           <SignupView />
         </Col>
       </Row>
-    <button onClick={() => { setUser(null); }}>Logout</button>
     );
   }
 
@@ -66,6 +65,7 @@ export const MainView = () => {
           <MovieCard movie={movie} key={movie._id} onClick={setSelectedMovie} />
         ))}
       </Row>
+      <button onClick={() => { setUser(null); }}>Logout</button>
     </div>
   );
 };
