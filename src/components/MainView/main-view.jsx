@@ -46,6 +46,7 @@ export const MainView = () => {
           <SignupView />
         </Col>
       </Row>
+    <button onClick={() => { setUser(null); }}>Logout</button>
     );
   }
 
