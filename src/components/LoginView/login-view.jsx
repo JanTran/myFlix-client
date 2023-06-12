@@ -1,6 +1,22 @@
 import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 
+export const LoginView = () => {
+  return (
+    <form>
+      <label>
+        Username:
+        <input type="text" />
+      </label>
+      <label>
+        Password:
+        <input type="password" />
+      </label>
+      <button type="submit">Submit</button>
+    </form>
+  );
+};
+/*
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -66,3 +82,4 @@ export const LoginView = ({ onLoggedIn }) => {
     </Form>
   );
 };
+*/
