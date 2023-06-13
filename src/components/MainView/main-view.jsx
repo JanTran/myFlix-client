@@ -5,8 +5,23 @@ import { MovieView } from "../MovieView/movie-view";
 import { LoginView } from "../LoginView/login-view";
 import { SignupView } from "../SignUpView/signup-view";
 import { Row, Col } from "react-bootstrap";
+import PropTypes from "prop-types";
+import { Button, Card } from "react-bootstrap";
 
-// The BookCard function component
+export const MovieCard = ({ movie, onMovieClick }) => {
+  return (
+    <Card>
+      <Card.Body>
+        <Card.Title>{movie.title}</Card.Title>
+        <Card.Text>{movie.director}</Card.Text>
+        <Button onClick={() => onMovieClick(movie)} variant="https://myflix-brendon.herokuapp.com/movie">
+          Open
+        </Button>
+      </Card.Body>
+    </Card>
+  );
+};
+
 export const MainView = () => {
   const [selectedMovie, setSelectedMovie] = useState(undefined);
   const [movies, setMovies] = useState([]);
