@@ -14,7 +14,7 @@ export const MovieCard = ({ movie, onMovieClick }) => {
       <Card.Body>
         <Card.Title>{movie.title}</Card.Title>
         <Card.Text>{movie.director}</Card.Text>
-        <Button onClick={() => onMovieClick(movie)} variant="https://myflix-brendon.herokuapp.com/movie">
+        <Button onClick={() => onMovieClick(movie)} variant="https://myflix-brendon.herokuapp.com/movies">
           Open
         </Button>
       </Card.Body>
