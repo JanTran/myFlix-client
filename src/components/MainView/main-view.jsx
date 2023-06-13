@@ -89,15 +89,6 @@ export const MainView = () => {
     );
   }
 
-  if (selectedMovie) {
-    return (
-      <MovieView
-        movie={selectedMovie}
-        onBack={() => setSelectedMovie(undefined)}
-      />
-    );
-  }
-
  return (
     <BrowserRouter>
       <Row className="justify-content-md-center">
