@@ -23,23 +23,48 @@ export const MovieCard = ({ movie, onMovieClick }) => {
 };
 
 export const MainView = () => {
-  const [selectedMovie, setSelectedMovie] = useState(undefined);
-  const [movies, setMovies] = useState([]);
-  const [user, setUser] = useState(localStorage.getItem("user"));
-  const [token, setToken] = useState(localStorage.getItem("token"));
+  const storedUser= JSON.parse(localStorage.getItem("user"));
+  const storedToken= localStorage.getItem("token");
+  const [movie, setMovie] = useState([]);
+  const [favoriteMovie, setFavoriteMovie] = useState([])
+  const [user, setUser]= useState(null);
+  const [token, setToken]= useState(null);
+
+
+  if(!user && storedUser) {
+    setFavoriteMovie(storedUser.FavoriteMovies)
+  }
+
+  if (!user && storedUser) {
+    setUser(storedUser);
+    setToken(storedToken);
+  }
 
   useEffect(() => {
     console.log(token);
     if (!token) {
       return;
     }
-    fetch("https://myflix-brendon.herokuapp.com/movies")
-      .then((response) => response.json())
+    fetch("https://myflix-brendon.herokuapp.com/movies", {
+      headers: { Authorization: `Bearer ${token}`}
+    })
+      .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        setMovies(data);
+        const moviesFromApi= data.map((movie) => {
+          return {
+            _id: movie._id,
+            Title: movie.Title,
+            Description: movie.Description,
+            Release_date: movie.Release_date,
+            Genre: movie.Genre,
+            Director: movie.Director,
+          }
+        }) 
+        
+        setMovie(moviesFromApi);
       });
   }, [token]);
+
 
   function onLoggedIn(user, token) {
     setUser(user);
