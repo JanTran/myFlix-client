@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
-export const LoginView = () => {
+export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -36,30 +37,29 @@ export const LoginView = () => {
   };
 
   return (
-    <Form onSubmit={handleSubmit} className="mt-2 w-50 mx-auto">
-      <h3>Login</h3>
-      <Form.Group controlId="username">
+    <Form onSubmit={handleSubmit}>
+      <Form.Group controlId="formUsername">
         <Form.Label>Username:</Form.Label>
         <Form.Control
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          minLength={6}
           required
+          minLength="3" 
         />
       </Form.Group>
-      <Form.Group controlId="password">
+
+      <Form.Group controlId="formPassword">
         <Form.Label>Password:</Form.Label>
         <Form.Control
-        type="password"
+          type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          minLength={7}
           required
         />
       </Form.Group>
-      <Button variant="primary" type="submit" className="mt-1">
-        Log In
+      <Button variant="primary" type="submit">
+        Submit
       </Button>
     </Form>
   );
