@@ -13,6 +13,8 @@ Users can:
   - log out
   - delete account
 
-# API used:
+API used:
 
 https://github.com/JanTran/movie_api
+
+
