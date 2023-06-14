@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { MovieCard } from "../MovieCard/movie-card";
 import { MovieView } from "../MovieView/movie-view";
 import { LoginView } from "../LoginView/login-view";
+import { NavigationBar } from '../NavigationBar/navigation-bar';
 import { SignupView } from "../SignUpView/signup-view";
 import { Row, Col } from "react-bootstrap";
 import PropTypes from "prop-types";
