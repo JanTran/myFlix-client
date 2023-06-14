@@ -92,73 +92,249 @@ export const MainView = () => {
 
  return (
     <BrowserRouter>
-      <Row className="justify-content-md-center">
+      <Row>
+        <Col>
+          <NavigationBar
+            user={user}
+            onLoggedOut={() =>{
+              setUser(null)
+              setToken(null);
+              localStorage.clear();
+              window.location.reload();
+            }}
+          />
+        </Col>
+      </Row>
+      <Row>
+        <Col className="mt-5"></Col>
+      </Row>
+      <Row>
         <Routes>
-          <Route
-            path="/signup"
-            element={
-              <>
-                {user ? (
-                  <Navigate to="/" />
-                ) : (
-                  <Col md={5}>
-                    <SignupView />
-                  </Col>
-                )}
+            <Route
+              path="/"
+              element={
+                <>
+                  { user && movie.length === 0 ? (
+                    <Col>The list is empty!</Col>
+                  ) : user ? (
+                    <SearchView
+                      user={user}
+                      token={token}
+                      favoriteMovies={favoriteMovie}
+                      movie={movie}
+                    />
+                  ) : (
+                    <Navigate to="/login" replace/>
+                  )}
                 </>
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <>
-                {user ? (
-                  <Navigate to="/" />
-                ) : (
-                  <Col md={5}>
-                    <LoginView onLoggedIn={(user) => setUser(user)} />
-                  </Col>
-                )}
-              </>
-
-            }
-          /><Route
-            path="/movies/:movieId"
-            element={
-              <>
-                {!user ? (
-                  <Navigate to="/login" replace />
-                ) : books.length === 0 ? (
-                  <Col>The list is empty!</Col>
-                ) : (
-                  <Col md={8}>
-                    <MovieView movie={movies} />
-                  </Col>
-                )}
-              </>
-            }
-          />
-          <Route
-            path="/"element={
-              <>
-                {!user ? (
-                  <Navigate to="/login" replace />
-                ) : movies.length === 0 ? (
-                  <Col>The list is empty!</Col>
-                ) : (
-                  <>
-                    {movies.map((movie) => (
-                      <Col className="mb-4" key={movie.id} md={3}>
-                        <MovieCard movie={movie} />
+              }
+            />
+            <Route 
+              path="/movies/:movieId"
+              element={
+                <>
+                  {user && movie.length === 0 ? (
+                    <Col sm={{offset: 2}} md={{offset: 4}} className="fw-bold fs-5 align-self-center mb-2 mt-4">
+                      The list is empty!
+                    </Col>
+                  ) : user ? (
+                    <Col xs={12}>
+                      <MovieView
+                        movieData={movie} 
+                        user={user}
+                        token={token}
+                        favoriteMovies={favoriteMovie}
+                      />
+                    </Col>
+                  ) : (
+                    <Navigate to="/login" replace/>
+                  )}
+                </>
+              }
+            />
+            <Route 
+              path="/login"
+              element={
+                <>
+                  { user ? (
+                    <Navigate to="/" replace/>
+                  ) : (
+                      <Col xs={12}>
+                        <LoginView onLoggedIn={(user, token) => {
+                          setUser(user);
+                          setToken(token);
+                          setFavoriteMovie(user.FavoriteMovies)
+                          }} />
                       </Col>
-                    ))}
-                  </>
-                )}
-              </>
-            }
-          />
+                  )}
+                </>
+              }
+            />
+            <Route 
+              path="/signup"
+              element={
+                <>
+                  { user ? (
+                    <Navigate to="/" replace/>
+                  ) : (
+                    <Col>
+                      <SignupView />
+                    </Col>
+                  )}
+                </>
+              }
+            />
+            <Route 
+              path="/users"
+              element={
+                <>
+                  { user ? (
+                      <Col>
+                        <ProfileView
+                          user={user} 
+                          favoriteMovieList={favoriteMovieList} 
+                          token={token}
+                          favoriteMovies={favoriteMovie}
+                        />
+                      </Col>
+                  ) : (
+                    <Navigate to="/login" replace/>
+                  )
+                  }
+                </>
+              }
+            />
+            <Route 
+              path="/users/settings"
+              element={
+                <>
+                  { user ? (
+                    <Col>
+                      <ProfileSettingsView />
+                    </Col>
+                  ) : (
+                    <Navigate to="/login" replace />
+                  )}
+                </>
+              }
+            />
+            <Route 
+              path="/users/settings/password"
+              element={
+                <>
+                  { user ? (
+                    <Col>
+                      <ProfilePasswordSettings 
+                        user={user} 
+                        token={token}
+                        onChanging={() => {
+                          setUser(null),
+                          setToken(null),
+                          localStorage.clear();
+                          window.location.reload();
+                        }}
+                      />
+                    </Col>
+                  ) : (
+                    <Navigate to="/login" replace/>
+                  )}
+                </>
+              }
+            />
+            <Route 
+              path="/users/settings/username"
+              element={
+                <>
+                  { user ? (
+                    <Col>
+                      <ProfileUsernameSettings 
+                        user={user} 
+                        token={token}
+                        onChanging={() => {
+                          setUser(null),
+                          setToken(null),
+                          localStorage.clear();
+                          window.location.reload();
+                        }}
+                      />
+                    </Col>
+                  ) : (
+                    <Navigate to="/login" replace/>
+                  )}
+                </>
+              }
+            />
+            <Route 
+              path="/users/settings/email"
+              element={
+                <>
+                  { user ? (
+                    <Col>
+                      <ProfileEmailSettings 
+                        user={user} 
+                        token={token}
+                        onChanging={() => {
+                          setUser(null),
+                          setToken(null),
+                          localStorage.clear();
+                          window.location.reload();
+                        }}
+                      />
+                    </Col>
+                  ) : (
+                    <Navigate to="/login" replace/>
+                  )}
+                </>
+              }
+            />
+            <Route 
+              path="/users/settings/birthday"
+              element={
+                <>
+                  { user ? (
+                    <Col>
+                      <ProfileBirthdaySettings 
+                        user={user} 
+                        token={token}
+                        onChanging={() => {
+                          setUser(null),
+                          setToken(null),
+                          localStorage.clear();
+                          window.location.reload();
+                        }}
+                      />
+                    </Col>
+                  ) : (
+                    <Navigate to="/login" replace/>
+                  )}
+                </>
+              }
+            />
+            <Route 
+              path="/users/settings/delete"
+              element={
+                <>
+                  { user ? (
+                    <Col>
+                      <ProfileDeleteView 
+                        user={user} 
+                        token={token}
+                        onDelete={() => {
+                          setUser(null),
+                          setToken(null),
+                          localStorage.clear();
+                          window.location.reload();
+                        }}
+                      />
+                    </Col>
+                  ) : (
+                    <Navigate to="/login" replace/>
+                  )}
+                </>
+              }
+            />
         </Routes>
       </Row>
     </BrowserRouter>
-  );
-};
+  )
+}
