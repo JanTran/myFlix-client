@@ -15,6 +15,7 @@ export const MovieView = ({ user, token, movieData, favoriteMovies }) => {
 
   return (
     <>
+
       <Row className="mt-3">
         <Col></Col>
         <Col sm={{ offset: 10 }}>
@@ -22,6 +23,7 @@ export const MovieView = ({ user, token, movieData, favoriteMovies }) => {
             <Button>Back</Button>
           </Link>
         </Col>
+
       </Row>
       <Row className="fw-bold fs-1 mb-3">
         <Col>{Movie.Title}</Col>
