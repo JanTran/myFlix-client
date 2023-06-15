@@ -10,20 +10,6 @@ import { Row, Col } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { Button, Card } from "react-bootstrap";
 
-export const MovieCard = ({ movie, onMovieClick }) => {
-  return (
-    <Card>
-      <Card.Body>
-        <Card.Title>{movie.title}</Card.Title>
-        <Card.Text>{movie.director}</Card.Text>
-        <Button onClick={() => onMovieClick(movie)} variant="https://myflix-brendon.herokuapp.com/movies">
-          Open
-        </Button>
-      </Card.Body>
-    </Card>
-  );
-};
-
 export const MainView = () => {
   const storedUser= JSON.parse(localStorage.getItem("user"));
   const storedToken= localStorage.getItem("token");
