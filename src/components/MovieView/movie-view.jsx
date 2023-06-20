@@ -7,11 +7,16 @@ import { MovieCard } from "../MovieCard/movie-card";
 
 export const MovieView = ({ user, token, movieData, favoriteMovies }) => {
   const { movieId } = useParams();
-
+    console.log(movieData)
+    console.log(movieId)
   const Movie = movieData.find((movie) => movie._id === movieId);
   const similarMovies = movieData.filter(
     (m) => Movie.Genre.Name === m.Genre.Name
   );
+
+  if(!Movie){
+      return null
+  }
 
   return (
     <>
@@ -70,18 +75,9 @@ export const MovieView = ({ user, token, movieData, favoriteMovies }) => {
       </Row>
       <Row>
         {similarMovies.map((similarMovie) =>
-          similarMovie._id === Movie._id ? (
-            <Col className="d-none" key="none"></Col>
-          ) : (
-            <Col xs={12} md={6} lg={4} xl={3} xxl={2} key={similarMovie._id}>
               <MovieCard
-                movieData={similarMovie}
-                user={user}
-                token={token}
-                favoriteMovies={favoriteMovies}
+                  movie={similarMovie} key={similarMovie._id}
               />
-            </Col>
-          )
         )}
       </Row>
     </>

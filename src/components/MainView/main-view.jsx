@@ -3,33 +3,19 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { MovieCard } from "../MovieCard/movie-card";
 import { MovieView } from "../MovieView/movie-view";
 import { LoginView } from "../LoginView/login-view";
-import { NavigationBar } from '../NavigationBar/navigation-bar';
 import { ProfileView } from "../ProfileView/profile-view";
 import { SignupView } from "../SignUpView/signup-view";
 import { Row, Col } from "react-bootstrap";
-import PropTypes from "prop-types";
-import { Button, Card } from "react-bootstrap";
 
 export const MainView = () => {
   const storedUser= JSON.parse(localStorage.getItem("user"));
   const storedToken= localStorage.getItem("token");
-  const [movie, setMovie] = useState([]);
+  const [movies, setMovies] = useState([]);
   const [favoriteMovie, setFavoriteMovie] = useState([])
-  const [user, setUser]= useState(null);
-  const [token, setToken]= useState(null);
-
-
-  if(!user && storedUser) {
-    setFavoriteMovie(storedUser.FavoriteMovies)
-  }
-
-  if (!user && storedUser) {
-    setUser(storedUser);
-    setToken(storedToken);
-  }
+  const [user, setUser]= useState(storedUser);
+  const [token, setToken]= useState(storedToken);
 
   useEffect(() => {
-    console.log(token);
     if (!token) {
       return;
     }
@@ -38,18 +24,8 @@ export const MainView = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        const moviesFromApi= data.map((movie) => {
-          return {
-            _id: movie._id,
-            Title: movie.Title,
-            Description: movie.Description,
-            Release_date: movie.Release_date,
-            Genre: movie.Genre,
-            Director: movie.Director,
-          }
-        }) 
-        
-        setMovie(moviesFromApi);
+          console.log(data[0])
+        setMovies(data);
       });
   }, [token]);
 
@@ -64,70 +40,19 @@ export const MainView = () => {
     localStorage.clear();
   }
 
-  if (!user) {
-    return (
-      <Row>
-        <Col>
-          <LoginView onLoggedIn={onLoggedIn} />
-        </Col>
-        <Col>
-          <SignupView />
-        </Col>
-      </Row>
-    );
-  }
-
+  console.log(movies)
  return (
     <BrowserRouter>
       <Row>
-        <Col>
-          <NavigationBar
-            user={user}
-            onLoggedOut={() =>{
-              setUser(null)
-              setToken(null);
-              localStorage.clear();
-              window.location.reload();
-            }}
-          />
-        </Col>
-      </Row>
-      <Row>
-        <Col className="mt-5"></Col>
-      </Row>
-      <Row>
         <Routes>
             <Route
-              path="/"
-              element={
-                <>
-                  { user && movie.length === 0 ? (
-                    <Col>The list is empty!</Col>
-                  ) : user ? (
-                    <SearchView
-                      user={user}
-                      token={token}
-                      favoriteMovies={favoriteMovie}
-                      movie={movie}
-                    />
-                  ) : (
-                    <Navigate to="/login" replace/>
-                  )}
-                </>
-              }
-            />
-            <Route 
               path="/movies/:movieId"
               element={
                 <>
-                  {user && movie.length === 0 ? (
-                    <Col sm={{offset: 2}} md={{offset: 4}} className="fw-bold fs-5 align-self-center mb-2 mt-4">
-                      The list is empty!
-                    </Col>
-                  ) : user ? (
+                  {user ? (
                     <Col xs={12}>
                       <MovieView
-                        movieData={movie} 
+                        movieData={movies}
                         user={user}
                         token={token}
                         favoriteMovies={favoriteMovie}
@@ -139,7 +64,7 @@ export const MainView = () => {
                 </>
               }
             />
-            <Route 
+            <Route
               path="/login"
               element={
                 <>
@@ -157,7 +82,7 @@ export const MainView = () => {
                 </>
               }
             />
-            <Route 
+            <Route
               path="/signup"
               element={
                 <>
@@ -171,14 +96,14 @@ export const MainView = () => {
                 </>
               }
             />
-            <Route 
+            <Route
               path="/users"
               element={
                 <>
                   { user ? (
                       <Col>
                         <ProfileView
-                          user={user} 
+                          user={user}
                           token={token}
                           favoriteMovies={favoriteMovie}
                         />
@@ -189,6 +114,18 @@ export const MainView = () => {
                   }
                 </>
               }
+            />
+            <Route
+                path="/"
+                element={
+                    <>
+                        {!user ? <Navigate to="/login" replace/> : movies.length === 0 ? (
+                            <Col>The list is empty!</Col>
+                        ) : (
+                            movies.map(movie => <MovieCard movie={movie} key={movie._id} /> )
+                        )}
+                    </>
+                }
             />
         </Routes>
       </Row>

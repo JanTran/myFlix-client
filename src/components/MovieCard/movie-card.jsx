@@ -7,9 +7,10 @@ import "./movie-card.scss";
 
 export const MovieCard = ({ movie }) => {
   return (
-    <Col md={3}>
+    <Col md={4}>
+      <Link to={`/movies/${movie._id}`}>
       <Card className="text-bg-dark border-secondary rounded mt-3">
-        <Card.Img className="px-3 pt-3" src={movie.ImagePath} />
+        {movie.ImagePath && <Card.Img className="px-3 pt-3" src={movie.ImagePath} />}
         <Card.Body>
           <Card.Title className="fw-bold cardTitle border-top pt-2">
             {movie.Title}
@@ -27,18 +28,19 @@ export const MovieCard = ({ movie }) => {
           </Card.Text>
         </Card.Body>
       </Card>
+      </Link>
     </Col>
   );
 };
 
-MovieCard.propTypes = {
-  movie: PropTypes.shape({
-    Title: PropTypes.string.isRequired,
-    Description: PropTypes.string.isRequired,
-    Release_date: PropTypes.string.isRequired,
-    Genre: PropTypes.object.isRequired,
-    Director: PropTypes.object.isRequired,
-    Actors: PropTypes.array,
-    ImagePath: PropTypes.string.isRequired,
-  }),
-};
+// MovieCard.propTypes = {
+//   movie: PropTypes.shape({
+//     Title: PropTypes.string.isRequired,
+//     Description: PropTypes.string.isRequired,
+//     Release_date: PropTypes.string.isRequired,
+//     Genre: PropTypes.object.isRequired,
+//     Director: PropTypes.object.isRequired,
+//     Actors: PropTypes.array,
+//     ImagePath: PropTypes.string.isRequired,
+//   }),
+// };
