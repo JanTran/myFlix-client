@@ -17,5 +17,7 @@ API used:
 
 https://github.com/JanTran/movie_api
 
+App link:
 
+https://myflix-brendon.netlify.app/
 
